@@ -13,6 +13,7 @@
     using System.Collections.Generic;
     using System.Text;
     using System.Globalization;
+    using System.Net;
 
     /// <summary>
     ///     The service for getting weather information.
@@ -506,6 +507,12 @@
             {
                 // read the result as a string
                 var content = await response.Content.ReadAsStringAsync();
+
+                // the resource was not found
+                if (response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    return default;
+                }
 
                 // something went wrong
                 if (!response.IsSuccessStatusCode)
