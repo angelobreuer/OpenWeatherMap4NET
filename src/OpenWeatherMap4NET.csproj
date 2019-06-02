@@ -1,7 +1,7 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Exe</OutputType>
+    <OutputType>Library</OutputType>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <RootNamespace>OpenWeatherMap</RootNamespace>
     <LangVersion>latest</LangVersion>
@@ -9,16 +9,20 @@
     <Description>A wrapper for the OpenWeatherMap.org RESTful api service.</Description>
     <Authors>Angelo Breuer</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
-    <RepositoryUrl>https://github.com/angelobreuer/OpenWeatherMap.NET</RepositoryUrl>
-    <PackageTags>openweathermap, weather, wrapper, OpenWeatherMap.NET</PackageTags>
+    <RepositoryUrl>https://github.com/angelobreuer/OpenWeatherMap4NET</RepositoryUrl>
+    <PackageTags>openweathermap, weather, wrapper, OpenWeatherMap4NET</PackageTags>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <ApplicationIcon />
     <StartupObject />
+    <PackageId>OpenWeatherMap4NET</PackageId>
+    <Product>OpenWeatherMap4NET</Product>
+    <AssemblyName>OpenWeatherMap4NET</AssemblyName>
+    <Copyright>Angelo Breuer 2019</Copyright>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
-    <DocumentationFile>OpenWeatherMap.Net.xml</DocumentationFile>
+    <DocumentationFile>OpenWeatherMap4NET.xml</DocumentationFile>
   </PropertyGroup>
 
   <ItemGroup>
@@ -36,5 +40,4 @@
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="System.Runtime.Caching" Version="4.5.0" />
   </ItemGroup>
-
 </Project>

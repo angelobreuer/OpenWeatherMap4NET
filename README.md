@@ -1,11 +1,11 @@
-# OpenWeatherMap.NET
+# OpenWeatherMap4NET
 
 ![Logo](https://i.imgur.com/YGidHLe.png)
 
 ## `Getting Started`
 
 1. First install [.NET Core >= 2.0](https://dotnet.microsoft.com/download/dotnet-core/2.0) for your platform.
-2. Install the [OpenWeatherMap.NET]() NuGet Package.
+2. Install the [OpenWeatherMap4NET]() NuGet Package.
 3. Request an API key from [openweathermap.org](https://home.openweathermap.org/api_keys)
 
 ___
