@@ -1,7 +1,7 @@
 <Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <OutputType>Library</OutputType>
+    <OutputType>Exe</OutputType>
     <TargetFramework>netcoreapp2.0</TargetFramework>
     <RootNamespace>OpenWeatherMap</RootNamespace>
     <LangVersion>latest</LangVersion>
@@ -10,7 +10,7 @@
     <Authors>Angelo Breuer</Authors>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/angelobreuer/OpenWeatherMap.NET</RepositoryUrl>
-    <PackageTags>openweathermap, weather, wrapper, openweathermap.net</PackageTags>
+    <PackageTags>openweathermap, weather, wrapper, OpenWeatherMap.NET</PackageTags>
     <PackageRequireLicenseAcceptance>true</PackageRequireLicenseAcceptance>
     <GeneratePackageOnBuild>true</GeneratePackageOnBuild>
     <ApplicationIcon />
