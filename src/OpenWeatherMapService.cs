@@ -490,6 +490,12 @@
             var requestUri = BuildRequestUri(uri, queryParameters, requestOptions, version);
             var result = await SendAsync<TEntity>(method, requestUri, httpContent);
 
+            // resource not found
+            if (result == default)
+            {
+                return result;
+            }
+
             // add the result to the cache for 10 minutes
             if (doCache)
             {
