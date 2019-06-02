@@ -1,0 +1,752 @@
+<?xml version="1.0"?>
+<doc>
+    <assembly>
+        <name>OpenWeatherMap.NET</name>
+    </assembly>
+    <members>
+        <member name="T:OpenWeatherMap.Entities.AdditionalWeatherInformation">
+            <summary>
+                The strongly-typed representation of a JSON-object providing additional weather
+                information for a weather station (e.g. sunrise, sunset).
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.AdditionalWeatherInformation.Sunrise">
+            <summary>
+                Gets the time when the sun rises.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.AdditionalWeatherInformation.Sunset">
+            <summary>
+                Gets the time when the sun goes down.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.AdditionalWeatherInformation.CountryCode">
+            <summary>
+                Gets the country code (e.g. "GB").
+            </summary>
+        </member>
+        <member name="T:OpenWeatherMap.Entities.CloudsInformation">
+            <summary>
+                The strongly-typed representation of a JSON-object providing clouds information.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.CloudsInformation.Cloudiness">
+            <summary>
+                Gets the cloudiness in percent (%).
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.CloudsInformation.TodayCloudiness">
+            <summary>
+                Gets the cloudiness today in percent (%).
+            </summary>
+        </member>
+        <member name="T:OpenWeatherMap.Entities.RainInformation">
+            <summary>
+                The strongly-typed representation of a JSON-object providing rain information.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.RainInformation.VolumeLast3Hours">
+            <summary>
+                Gets the rain volume the last 3 hours in mm.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.RainInformation.VolumeLastHour">
+            <summary>
+                Gets the rain volume the last hour in mm.
+            </summary>
+        </member>
+        <member name="T:OpenWeatherMap.Entities.SnowInformation">
+            <summary>
+                The strongly-typed representation of a JSON-object providing snow information.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.SnowInformation.VolumeLast3Hours">
+            <summary>
+                Gets the snow volume the last 3 hours in mm.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.SnowInformation.VolumeLastHour">
+            <summary>
+                Gets the snow volume the last hour in mm.
+            </summary>
+        </member>
+        <member name="T:OpenWeatherMap.Entities.TemperatureInfo">
+            <summary>
+                The strongly-typed representation of a JSON-object providing temperature info from a
+                specific weather station.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.TemperatureInfo.Value">
+            <summary>
+                Gets the temperature.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.TemperatureInfo.Pressure">
+            <summary>
+                Gets the pressure.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.TemperatureInfo.Humidity">
+            <summary>
+                Gets the humidity.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.TemperatureInfo.MinimumTemperature">
+            <summary>
+                Gets the minimum temperature.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.TemperatureInfo.MaximumTemperature">
+            <summary>
+                Gets the maximum temperature.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.TemperatureInfo.SeaLevel">
+            <summary>
+                Gets the atmospheric pressure on the sea level (in hPa).
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.TemperatureInfo.GroundLevel">
+            <summary>
+                Gets the atmospheric pressure on the ground level (in hPa).
+            </summary>
+        </member>
+        <member name="M:OpenWeatherMap.Entities.TemperatureInfo.ToString">
+            <summary>
+                Builds a string representation of the object.
+            </summary>
+            <returns>the string representation</returns>
+        </member>
+        <member name="T:OpenWeatherMap.Entities.UVIndex">
+            <summary>
+                Represents the response object for the UV-api.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.UVIndex.DateTime">
+            <summary>
+                Gets the when the UV index is.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.UVIndex.Value">
+            <summary>
+                Gets the UV index.
+            </summary>
+        </member>
+        <member name="M:OpenWeatherMap.Entities.UVIndex.ToString">
+            <summary>
+                Builds a string representation of the object.
+            </summary>
+            <returns>the string representation</returns>
+        </member>
+        <member name="T:OpenWeatherMap.Entities.Weather">
+            <summary>
+                The weather response object.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.Weather.AdditionalInformation">
+            <summary>
+                Gets the
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.Weather.CalculationTime">
+            <summary>
+                The calculation time needed.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.Weather.Clouds">
+            <summary>
+                Gets the additional clouds information.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.Weather.Coordinates">
+            <summary>
+                Gets the coordinates of the city.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.Weather.Id">
+            <summary>
+                Gets the city id.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.Weather.Name">
+            <summary>
+                Gets the name of the city.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.Weather.Rain">
+            <summary>
+                Gets the additional rain information.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.Weather.Temperature">
+            <summary>
+                Gets the temperature information.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.Weather.WeatherConditions">
+            <summary>
+                Gets the weather information.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.Weather.Wind">
+            <summary>
+                Gets the additional wind information.
+            </summary>
+        </member>
+        <member name="T:OpenWeatherMap.Entities.WeatherCondition">
+            <summary>
+                The strongly-typed representation of a JSON-object providing weather condition information.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.WeatherCondition.Id">
+            <summary>
+                Gets the identifier of the weather condition.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.WeatherCondition.Type">
+            <summary>
+                Gets the type of the weather condition.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.WeatherCondition.Description">
+            <summary>
+                Gets the description of the weather (localized).
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.WeatherCondition.IconId">
+            <summary>
+                Gets the weather icon id (e.g. 09d).
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.WeatherCondition.IconUrl">
+            <summary>
+                Gets the URL to the weather icon.
+            </summary>
+        </member>
+        <member name="T:OpenWeatherMap.Entities.WeatherConditionType">
+            <summary>
+                The different weather condition types.
+            </summary>
+        </member>
+        <member name="F:OpenWeatherMap.Entities.WeatherConditionType.Thunderstorm">
+            <summary>
+                Thunderstorm weather condition
+            </summary>
+        </member>
+        <member name="F:OpenWeatherMap.Entities.WeatherConditionType.Drizzle">
+            <summary>
+                Drizzle weather condition
+            </summary>
+        </member>
+        <member name="F:OpenWeatherMap.Entities.WeatherConditionType.Rain">
+            <summary>
+                Rain weather condition
+            </summary>
+        </member>
+        <member name="F:OpenWeatherMap.Entities.WeatherConditionType.Snow">
+            <summary>
+                Snow weather condition
+            </summary>
+        </member>
+        <member name="F:OpenWeatherMap.Entities.WeatherConditionType.Atmosphere">
+            <summary>
+                Atmosphere weather condition
+            </summary>
+        </member>
+        <member name="F:OpenWeatherMap.Entities.WeatherConditionType.Clear">
+            <summary>
+                Clear weather condition
+            </summary>
+        </member>
+        <member name="F:OpenWeatherMap.Entities.WeatherConditionType.Clouds">
+            <summary>
+                Clouds weather condition
+            </summary>
+        </member>
+        <member name="T:OpenWeatherMap.Entities.WeatherCoordinates">
+            <summary>
+                Represents coordinates.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.WeatherCoordinates.Latitude">
+            <summary>
+                Gets the latitude degree.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.WeatherCoordinates.Longitude">
+            <summary>
+                Gets the longitude degree.
+            </summary>
+        </member>
+        <member name="M:OpenWeatherMap.Entities.WeatherCoordinates.ToString">
+            <summary>
+                Builds a string representation of the object.
+            </summary>
+            <returns>the string representation</returns>
+        </member>
+        <member name="T:OpenWeatherMap.Entities.WeatherForecast">
+            <summary>
+                Represents the response object of a weather forecast request.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.WeatherForecast.List">
+            <summary>
+                The list of available weather forecasts.
+            </summary>
+        </member>
+        <member name="T:OpenWeatherMap.Entities.WeatherForecastItem">
+            <summary>
+                The item in a <see cref="T:OpenWeatherMap.Entities.WeatherForecast"/>.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.WeatherForecastItem.CalculationTime">
+            <summary>
+                The calculation time needed.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.WeatherForecastItem.Clouds">
+            <summary>
+                Gets the additional clouds information.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.WeatherForecastItem.Rain">
+            <summary>
+                Gets the additional rain information.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.WeatherForecastItem.Temperature">
+            <summary>
+                Gets the temperature information.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.WeatherForecastItem.WeatherConditions">
+            <summary>
+                Gets the weather information.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.WeatherForecastItem.Wind">
+            <summary>
+                Gets the additional wind information.
+            </summary>
+        </member>
+        <member name="T:OpenWeatherMap.Entities.WeatherList">
+            <summary>
+                The response object for weather lists.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.WeatherList.CalculationTime">
+            <summary>
+                The calculation time needed.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.WeatherList.List">
+            <summary>
+                The weathers in the list.
+            </summary>
+        </member>
+        <member name="T:OpenWeatherMap.Entities.WeatherZone">
+            <summary>
+                Represents a weather zone.
+            </summary>
+        </member>
+        <member name="M:OpenWeatherMap.Entities.WeatherZone.#ctor(System.Int32,System.Int32,System.Int32,System.Int32,System.Int32)">
+            <summary>
+                Initializes a new instance of the <see cref="T:OpenWeatherMap.Entities.WeatherZone"/> class.
+            </summary>
+            <param name="longitudeLeft">the left longitude</param>
+            <param name="latitudeBottom">the bottom latitude</param>
+            <param name="longitudeRight">t</param>
+            <param name="latitudeTop">t</param>
+            <param name="zoom"></param>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.WeatherZone.LatitudeBottom">
+            <summary>
+                The bottom latitude.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.WeatherZone.LatitudeTop">
+            <summary>
+                The top latitude.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.WeatherZone.LongitudeLeft">
+            <summary>
+                The left longitude.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.WeatherZone.LongitudeRight">
+            <summary>
+                The right longitude.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.WeatherZone.Zoom">
+            <summary>
+                The rectangle zoom.
+            </summary>
+        </member>
+        <member name="M:OpenWeatherMap.Entities.WeatherZone.ToZoneString">
+            <summary>
+                Creates the zone string in format: "{LongitudeLeft},{LatitudeBottom},{LongitudeRight},{LatitudeTop},{Zoom}".
+            </summary>
+            <returns>the zone string</returns>
+        </member>
+        <member name="T:OpenWeatherMap.Entities.WindInformation">
+            <summary>
+                The strongly-typed representation of a JSON-object providing wind information.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.WindInformation.Speed">
+            <summary>
+                Gets the wind speed.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Entities.WindInformation.Direction">
+            <summary>
+                Gets the angle of the wind direction.
+            </summary>
+        </member>
+        <member name="M:OpenWeatherMap.Entities.WindInformation.ToString">
+            <summary>
+                Builds a string representation of the object.
+            </summary>
+            <returns>the string representation</returns>
+        </member>
+        <member name="T:OpenWeatherMap.OpenWeatherMapOptions">
+            <summary>
+                Options for the <see cref="T:OpenWeatherMap.OpenWeatherMapService"/>.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.OpenWeatherMapOptions.ApiKey">
+            <summary>
+                Gets or sets the RESTful api key (required).
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.OpenWeatherMapOptions.BaseAddress">
+            <summary>
+                Gets or sets the base address for the RESTful api service (required).
+            </summary>
+        </member>
+        <member name="M:OpenWeatherMap.OpenWeatherMapOptions.Validate">
+            <summary>
+                Validates the open weather map options.
+            </summary>
+        </member>
+        <member name="T:OpenWeatherMap.OpenWeatherMapService">
+            <summary>
+                The service for getting weather information.
+            </summary>
+        </member>
+        <member name="M:OpenWeatherMap.OpenWeatherMapService.#ctor(OpenWeatherMap.OpenWeatherMapOptions)">
+            <summary>
+                Initializes a new instance of the <see cref="T:OpenWeatherMap.OpenWeatherMapService"/> class.
+            </summary>
+            <param name="options">the open weather map options (api key, etc.)</param>
+        </member>
+        <member name="M:OpenWeatherMap.OpenWeatherMapService.Dispose">
+            <summary>
+                Disposes the underlying HTTP client and clears the request cache.
+            </summary>
+        </member>
+        <member name="M:OpenWeatherMap.OpenWeatherMapService.GetCurrentUVIndexAsync(System.Double,System.Double,OpenWeatherMap.Util.RequestOptions)">
+            <summary>
+                Gets the current UV index for the specified coordinates asynchronously.
+            </summary>
+            <param name="latitude">the latitude to get the weather from</param>
+            <param name="longitude">the longitude to get the weather from</param>
+            <param name="requestOptions">
+                the request options (can change the behavior of requesting and controls caching,
+                cancellation, unit and language options of the result)
+            </param>
+            <returns>a task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:OpenWeatherMap.OpenWeatherMapService.GetCurrentWeatherAsync(System.String,System.String,OpenWeatherMap.Util.RequestOptions)">
+            <summary>
+                Gets the current weather information for the specified <paramref name="city"/> asynchronously.
+            </summary>
+            <param name="city">the city to get the information from</param>
+            <param name="countryCode">the country code (used to narrow down city search results)</param>
+            <param name="requestOptions">
+                the request options (can change the behavior of requesting and controls caching,
+                cancellation, unit and language options of the result)
+            </param>
+            <returns>a task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:OpenWeatherMap.OpenWeatherMapService.GetCurrentWeatherAsync(System.Int32,OpenWeatherMap.Util.RequestOptions)">
+            <summary>
+                Gets the current weather information for the city specified by
+                <paramref name="cityId"/> asynchronously.
+            </summary>
+            <param name="cityId">the id of the city to get the weather information for ( <see cref="P:OpenWeatherMap.Entities.Weather.Id"/>)</param>
+            <param name="requestOptions">
+                the request options (can change the behavior of requesting and controls caching,
+                cancellation, unit and language options of the result)
+            </param>
+            <returns>a task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:OpenWeatherMap.OpenWeatherMapService.GetCurrentWeatherAsync(System.Double,System.Double,OpenWeatherMap.Util.RequestOptions)">
+            <summary>
+                Gets the current weather information for the specified coordinates asynchronously.
+            </summary>
+            <param name="latitude">the latitude to get the weather from</param>
+            <param name="longitude">the longitude to get the weather from</param>
+            <param name="requestOptions">
+                the request options (can change the behavior of requesting and controls caching,
+                cancellation, unit and language options of the result)
+            </param>
+            <returns>a task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:OpenWeatherMap.OpenWeatherMapService.GetCurrentWeatherAsync(System.Collections.Generic.IEnumerable{System.Int32},OpenWeatherMap.Util.RequestOptions)">
+            <summary>
+                Gets the current weather information for the specified <paramref name="cityIds"/> asynchronously.
+            </summary>
+            <param name="cityIds">the ids of the cities to get the weather for</param>
+            <param name="requestOptions">
+                the request options (can change the behavior of requesting and controls caching,
+                cancellation, unit and language options of the result)
+            </param>
+            <returns>a task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:OpenWeatherMap.OpenWeatherMapService.GetCurrentWeatherAsync(System.Double,System.Double,System.Int32,System.Boolean,OpenWeatherMap.Util.RequestOptions)">
+            <summary>
+                Gets the current weather informations for the specified perimeter asynchronously.
+            </summary>
+            <remarks>
+                The specified coordinates ( <paramref name="latitude"/> and
+                <paramref name="longitude"/> marks the center of the position.)
+            </remarks>
+            <param name="latitude">the latitude to get the weather from</param>
+            <param name="longitude">the longitude to get the weather from</param>
+            <param name="count">the number of results that should be returned</param>
+            <param name="cluster">
+                a value indicating whether server clustering of points should be used for the
+                response data
+            </param>
+            <param name="requestOptions">
+                the request options (can change the behavior of requesting and controls caching,
+                cancellation, unit and language options of the result)
+            </param>
+            <returns>a task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:OpenWeatherMap.OpenWeatherMapService.GetCurrentWeatherAsync(OpenWeatherMap.Entities.WeatherZone,System.Boolean,OpenWeatherMap.Util.RequestOptions)">
+            <summary>
+                Gets the current weather informations for the specified <paramref name="zone"/> asynchronously.
+            </summary>
+            <param name="zone">the zone to get the weather informations for</param>
+            <param name="cluster">
+                a value indicating whether server clustering of points should be used for the
+                response data
+            </param>
+            <param name="requestOptions">
+                the request options (can change the behavior of requesting and controls caching,
+                cancellation, unit and language options of the result)
+            </param>
+            <returns>a task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:OpenWeatherMap.OpenWeatherMapService.GetCurrentWeatherAsync(System.Int32,System.String,OpenWeatherMap.Util.RequestOptions)">
+            <summary>
+                Gets the current weather information for the specified <paramref name="zipCode"/> asynchronously.
+            </summary>
+            <param name="zipCode">the zip code</param>
+            <param name="country">the country where the zip code is in (defaults to US)</param>
+            <param name="requestOptions">
+                the request options (can change the behavior of requesting and controls caching,
+                cancellation, unit and language options of the result)
+            </param>
+            <returns>a task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:OpenWeatherMap.OpenWeatherMapService.GetUVIndexForecastAsync(System.Double,System.Double,System.Int32,OpenWeatherMap.Util.RequestOptions)">
+            <summary>
+                Gets the forecast UV index for the specified coordinates asynchronously.
+            </summary>
+            <param name="latitude">the latitude to get the weather from</param>
+            <param name="longitude">the longitude to get the weather from</param>
+            <param name="days">the forecast days (max: 8)</param>
+            <param name="requestOptions">
+                the request options (can change the behavior of requesting and controls caching,
+                cancellation, unit and language options of the result)
+            </param>
+            <returns>a task that represents the asynchronous operation</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                thrown if the specified <paramref name="days"/> parameter is smaller than 1 or
+                greater than 8.
+            </exception>
+        </member>
+        <member name="M:OpenWeatherMap.OpenWeatherMapService.GetUVIndexHistoryAsync(System.Double,System.Double,System.DateTimeOffset,System.DateTimeOffset,System.Int32,OpenWeatherMap.Util.RequestOptions)">
+            <summary>
+                Gets the forecast UV index for the specified coordinates asynchronously.
+            </summary>
+            <param name="latitude">the latitude to get the weather from</param>
+            <param name="longitude">the longitude to get the weather from</param>
+            <param name="start">the history start time</param>
+            <param name="end">the history end time</param>
+            <param name="days">the forecast days (max: 8)</param>
+            <param name="requestOptions">
+                the request options (can change the behavior of requesting and controls caching,
+                cancellation, unit and language options of the result)
+            </param>
+            <returns>a task that represents the asynchronous operation</returns>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                thrown if the specified <paramref name="days"/> parameter is smaller than 1 or
+                greater than 8.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                thrown if the specified <paramref name="start"/> time is before 2017-06-22.
+            </exception>
+            <exception cref="T:System.ArgumentOutOfRangeException">
+                thrown if the <paramref name="start"/> time is greater than the
+                <paramref name="end"/> time.
+            </exception>
+        </member>
+        <member name="M:OpenWeatherMap.OpenWeatherMapService.GetWeatherForecastAsync(System.String,System.String,OpenWeatherMap.Util.ForecastType,OpenWeatherMap.Util.RequestOptions)">
+            <summary>
+                Gets the weather forecast for the specified city asynchronously.
+            </summary>
+            <param name="city">the city name</param>
+            <param name="countryCode">the country code</param>
+            <param name="forecastType">the forecast type (Hourly, ThreeHour or Daily)</param>
+            <param name="requestOptions">
+                the request options (can change the behavior of requesting and controls caching,
+                cancellation, unit and language options of the result)
+            </param>
+            <returns>a task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:OpenWeatherMap.OpenWeatherMapService.GetWeatherForecastAsync(System.Int32,OpenWeatherMap.Util.ForecastType,OpenWeatherMap.Util.RequestOptions)">
+            <summary>
+                Gets the weather forecast for the specified city asynchronously.
+            </summary>
+            <param name="cityId">the city id</param>
+            <param name="forecastType">the forecast type (Hourly, ThreeHour or Daily)</param>
+            <param name="requestOptions">
+                the request options (can change the behavior of requesting and controls caching,
+                cancellation, unit and language options of the result)
+            </param>
+            <returns>a task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:OpenWeatherMap.OpenWeatherMapService.GetWeatherForecastAsync(System.Double,System.Double,OpenWeatherMap.Util.ForecastType,OpenWeatherMap.Util.RequestOptions)">
+            <summary>
+                Gets the weather forecast for the specified city asynchronously.
+            </summary>
+            <param name="latitude">the latitude to get the weather forecast for</param>
+            <param name="longitude">the longitude to get the weather forecast for</param>
+            <param name="forecastType">the forecast type (Hourly, ThreeHour or Daily)</param>
+            <param name="requestOptions">
+                the request options (can change the behavior of requesting and controls caching,
+                cancellation, unit and language options of the result)
+            </param>
+            <returns>a task that represents the asynchronous operation</returns>
+        </member>
+        <member name="M:OpenWeatherMap.OpenWeatherMapService.GetWeatherForecastAsync(System.Int32,System.String,OpenWeatherMap.Util.ForecastType,OpenWeatherMap.Util.RequestOptions)">
+            <summary>
+                Gets the weather forecast for the specified city asynchronously.
+            </summary>
+            <param name="zipCode">the zip code</param>
+            <param name="country">the country where the zip code is in (defaults to US)</param>
+            <param name="forecastType">the forecast type (Hourly, ThreeHour or Daily)</param>
+            <param name="requestOptions">
+                the request options (can change the behavior of requesting and controls caching,
+                cancellation, unit and language options of the result)
+            </param>
+            <returns>a task that represents the asynchronous operation</returns>
+        </member>
+        <member name="T:OpenWeatherMap.Util.CacheMode">
+            <summary>
+                A set of supported caching modes.
+            </summary>
+        </member>
+        <member name="F:OpenWeatherMap.Util.CacheMode.AllowDownload">
+            <summary>
+                Allows caching and downloading.
+            </summary>
+        </member>
+        <member name="F:OpenWeatherMap.Util.CacheMode.Download">
+            <summary>
+                Does not try to get the request from the cache, this will always try to download the
+                resource even if it is in cache.
+            </summary>
+        </member>
+        <member name="F:OpenWeatherMap.Util.CacheMode.CacheOnly">
+            <summary>
+                Throws an exception if the requested resource is not cached.
+            </summary>
+        </member>
+        <member name="F:OpenWeatherMap.Util.CacheMode.Default">
+            <summary>
+                The default <see cref="T:OpenWeatherMap.Util.CacheMode"/>.
+            </summary>
+        </member>
+        <member name="T:OpenWeatherMap.Util.ForecastType">
+            <summary>
+                Supported forecast types.
+            </summary>
+        </member>
+        <member name="F:OpenWeatherMap.Util.ForecastType.Hourly">
+            <summary>
+                Hourly forecast for four days.
+            </summary>
+        </member>
+        <member name="F:OpenWeatherMap.Util.ForecastType.ThreeHour">
+            <summary>
+                Three hour forecast for five days.
+            </summary>
+        </member>
+        <member name="F:OpenWeatherMap.Util.ForecastType.Daily">
+            <summary>
+                Daily weather forecast for 16 days.
+            </summary>
+        </member>
+        <member name="T:OpenWeatherMap.Util.RequestOptions">
+            <summary>
+                Request options for <see cref="T:OpenWeatherMap.OpenWeatherMapService"/>.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Util.RequestOptions.Default">
+            <summary>
+                Gets the default request options (can be changed to change the default behavior, note
+                that other services behavior may change).
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Util.RequestOptions.CacheMode">
+            <summary>
+                Gets or sets the caching mode to use when requesting.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Util.RequestOptions.CancellationToken">
+            <summary>
+                A cancellation token used to propagate notification that the request should be canceled.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Util.RequestOptions.Language">
+            <summary>
+                Gets or sets the response language.
+            </summary>
+        </member>
+        <member name="P:OpenWeatherMap.Util.RequestOptions.Unit">
+            <summary>
+                Gets or sets the unit for the response units.
+            </summary>
+        </member>
+        <member name="T:OpenWeatherMap.Util.UnitType">
+            <summary>
+                A set of different unit types supported by OpenWeatherMap.
+            </summary>
+        </member>
+        <member name="F:OpenWeatherMap.Util.UnitType.Default">
+            <summary>
+                When specified temperature is returned in Kelvin and speeds are returned in meter per
+                second (meter/sec).
+            </summary>
+        </member>
+        <member name="F:OpenWeatherMap.Util.UnitType.Metric">
+            <summary>
+                When specified temperature is returned in Celsius and speeds are returned in meter
+                per second (meter/sec).
+            </summary>
+        </member>
+        <member name="F:OpenWeatherMap.Util.UnitType.Imperial">
+            <summary>
+                When specified temperature is returned in Fahrenheit and speeds are returned in miles
+                per hour (miles/hour).
+            </summary>
+        </member>
+    </members>
+</doc>
