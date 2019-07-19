@@ -263,6 +263,11 @@
                 Clouds weather condition
             </summary>
         </member>
+        <member name="F:OpenWeatherMap.Entities.WeatherConditionType.Haze">
+            <summary>
+                Haze weather condition
+            </summary>
+        </member>
         <member name="T:OpenWeatherMap.Entities.WeatherCoordinates">
             <summary>
                 Represents coordinates.
