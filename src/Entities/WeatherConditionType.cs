@@ -38,6 +38,11 @@
         /// <summary>
         ///     Clouds weather condition
         /// </summary>
-        Clouds
+        Clouds,
+        
+        /// <summary>
+        ///     Haze weather condition
+        /// </summary>
+        Haze
     }
 }
