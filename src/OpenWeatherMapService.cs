@@ -92,10 +92,12 @@
         }
 
         /// <summary>
-        ///     Gets the current weather information for the city specified by
-        ///     <paramref name="cityId"/> asynchronously.
+        ///     Gets the current weather information for the city specified by <paramref
+        ///     name="cityId"/> asynchronously.
         /// </summary>
-        /// <param name="cityId">the id of the city to get the weather information for ( <see cref="Weather.Id"/>)</param>
+        /// <param name="cityId">
+        ///     the id of the city to get the weather information for ( <see cref="Weather.Id"/>)
+        /// </param>
         /// <param name="requestOptions">
         ///     the request options (can change the behavior of requesting and controls caching,
         ///     cancellation, unit and language options of the result)
@@ -155,8 +157,8 @@
         ///     Gets the current weather informations for the specified perimeter asynchronously.
         /// </summary>
         /// <remarks>
-        ///     The specified coordinates ( <paramref name="latitude"/> and
-        ///     <paramref name="longitude"/> marks the center of the position.)
+        ///     The specified coordinates ( <paramref name="latitude"/> and <paramref
+        ///     name="longitude"/> marks the center of the position.)
         /// </remarks>
         /// <param name="latitude">the latitude to get the weather from</param>
         /// <param name="longitude">the longitude to get the weather from</param>
@@ -279,8 +281,8 @@
         ///     thrown if the specified <paramref name="start"/> time is before 2017-06-22.
         /// </exception>
         /// <exception cref="ArgumentOutOfRangeException">
-        ///     thrown if the <paramref name="start"/> time is greater than the
-        ///     <paramref name="end"/> time.
+        ///     thrown if the <paramref name="start"/> time is greater than the <paramref
+        ///     name="end"/> time.
         /// </exception>
         public Task<IReadOnlyCollection<UVIndex>> GetUVIndexHistoryAsync(double latitude, double longitude, DateTimeOffset start, DateTimeOffset end, int days, RequestOptions requestOptions = default)
         {
@@ -491,7 +493,7 @@
             var result = await SendAsync<TEntity>(method, requestUri, httpContent);
 
             // resource not found
-            if (result == default)
+            if (result == null)
             {
                 return result;
             }
