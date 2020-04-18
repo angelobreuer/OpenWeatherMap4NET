@@ -8,7 +8,7 @@
     <PackageProjectUrl></PackageProjectUrl>
     <Description>A wrapper for the OpenWeatherMap.org RESTful api service.</Description>
     <Authors>Angelo Breuer</Authors>
-    <Version>1.0.3</Version>
+    <Version>1.0.4</Version>
     <PackageLicenseExpression>MIT</PackageLicenseExpression>
     <RepositoryUrl>https://github.com/angelobreuer/OpenWeatherMap4NET</RepositoryUrl>
     <PackageTags>openweathermap, weather, wrapper, OpenWeatherMap4NET</PackageTags>
