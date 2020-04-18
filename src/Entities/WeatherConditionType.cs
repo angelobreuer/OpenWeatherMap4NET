@@ -3,7 +3,7 @@
     /// <summary>
     ///     The different weather condition types.
     /// </summary>
-    public enum WeatherConditionType
+    public enum WeatherConditionType : byte
     {
         /// <summary>
         ///     Thunderstorm weather condition
@@ -39,10 +39,15 @@
         ///     Clouds weather condition
         /// </summary>
         Clouds,
-        
+
         /// <summary>
         ///     Haze weather condition
         /// </summary>
-        Haze
+        Haze,
+
+        /// <summary>
+        ///     Mist weather condition
+        /// </summary>
+        Mist
     }
 }
