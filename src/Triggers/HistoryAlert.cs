@@ -1,8 +1,5 @@
 ﻿namespace OpenWeatherMap.Triggers
 {
-    using System;
-    using System.Collections.Generic;
-    using System.Text;
     using Newtonsoft.Json;
 
     public sealed class HistoryAlert : Alert
