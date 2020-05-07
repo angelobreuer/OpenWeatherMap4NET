@@ -459,7 +459,7 @@
             }
         }
 
-        private async Task<TEntity> RequestAsync<TEntity>(string uri, NameValueCollection queryParameters = null, RequestOptions requestOptions = default,
+        protected async Task<TEntity> RequestAsync<TEntity>(string uri, NameValueCollection queryParameters = null, RequestOptions requestOptions = default,
             string version = "2.5", bool doCache = true, HttpMethod method = null, HttpContent httpContent = null)
         {
             method = method ?? HttpMethod.Get;

@@ -27,17 +27,6 @@
   </PropertyGroup>
 
   <ItemGroup>
-    <Compile Remove="Triggers\**" />
-    <EmbeddedResource Remove="Triggers\**" />
-    <None Remove="Triggers\**" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Compile Remove="OpenWeatherMapTriggerOptions.cs" />
-    <Compile Remove="OpenWeatherMapTriggerService.cs" />
-  </ItemGroup>
-
-  <ItemGroup>
     <PackageReference Include="Newtonsoft.Json" Version="12.0.2" />
     <PackageReference Include="System.Runtime.Caching" Version="4.5.0" />
   </ItemGroup>

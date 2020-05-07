@@ -3,9 +3,11 @@
     using System;
     using System.Collections.Generic;
     using System.Linq;
+    using System.Net.Http;
     using System.Text;
     using System.Threading;
     using System.Threading.Tasks;
+    using Newtonsoft.Json;
     using OpenWeatherMap.Triggers;
     using OpenWeatherMap.Util;
 
@@ -35,11 +37,9 @@
 
         public async Task<int> ForcePullAlertsAsync(RequestOptions requestOptions = default)
         {
-            Console.WriteLine("polling...");
             var triggers = await GetAllTriggersAsync(requestOptions);
             var tasks = triggers.SelectMany(s => s.Alerts.Select(j => OnAlertReceived(s, j.Value))).ToArray();
             await Task.WhenAll(tasks);
-            Console.WriteLine("polling finished: " + tasks.Length);
             return tasks.Length;
         }
 
