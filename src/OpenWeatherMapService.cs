@@ -14,6 +14,10 @@
     using System.Text;
     using System.Globalization;
     using System.Net;
+    using OpenWeatherMap.Triggers;
+    using Newtonsoft.Json.Linq;
+    using System.IO;
+    using System.Threading;
 
     /// <summary>
     ///     The service for getting weather information.
@@ -26,6 +30,8 @@
         private readonly MemoryCache _cache;
         private readonly HttpClient _httpClient;
         private readonly OpenWeatherMapOptions _options;
+        private readonly ISet<string> _triggerSubscriptions;
+        private Timer _pollTimer;
 
         /// <summary>
         ///     Initializes a new instance of the <see cref="OpenWeatherMapService"/> class.
@@ -38,6 +44,31 @@
 
             _options = options ?? throw new ArgumentNullException(nameof(options));
             _options.Validate();
+
+            _triggerSubscriptions = new HashSet<string>(StringComparer.OrdinalIgnoreCase);
+        }
+
+        public event EventHandler<AlertEventArgs> AlertReceived;
+
+        public async Task<TriggerInformation> CreateTriggerAsync(Trigger trigger, RequestOptions requestOptions = null)
+        {
+            requestOptions = requestOptions ?? RequestOptions.Default;
+            requestOptions.CancellationToken.ThrowIfCancellationRequested();
+
+            using (var content = new JsonContent(trigger))
+            {
+                return await RequestAsync<TriggerInformation>(
+                    "triggers", requestOptions: requestOptions, doCache: false, method: HttpMethod.Post,
+                    httpContent: content);
+            }
+        }
+
+        public Task DeleteTriggerAsync(string id, RequestOptions requestOptions = null)
+        {
+            requestOptions = requestOptions ?? RequestOptions.Default;
+            requestOptions.CancellationToken.ThrowIfCancellationRequested();
+
+            return RequestAsync($"triggers/{id}", requestOptions: requestOptions, method: HttpMethod.Delete);
         }
 
         /// <summary>
@@ -47,6 +78,9 @@
         {
             _httpClient.Dispose();
             _cache.Dispose();
+
+            _pollTimer?.Dispose();
+            _pollTimer = null;
         }
 
         /// <summary>
@@ -228,6 +262,14 @@
             return RequestAsync<Weather>("weather", parameters, requestOptions);
         }
 
+        public Task<TriggerInformation> GetTriggerAsync(string id, RequestOptions requestOptions = null)
+        {
+            requestOptions = requestOptions ?? RequestOptions.Default;
+            requestOptions.CancellationToken.ThrowIfCancellationRequested();
+
+            return RequestAsync<TriggerInformation>($"triggers/{id}", requestOptions: requestOptions);
+        }
+
         /// <summary>
         ///     Gets the forecast UV index for the specified coordinates asynchronously.
         /// </summary>
@@ -396,6 +438,161 @@
             return RequestAsync<WeatherForecast>(GetEndpoint(forecastType), parameters, requestOptions);
         }
 
+        public async Task PollAsync(CancellationToken cancellationToken = default)
+        {
+            cancellationToken.ThrowIfCancellationRequested();
+
+            var requestOptions = new RequestOptions { CancellationToken = cancellationToken };
+
+            foreach (var subscription in _triggerSubscriptions)
+            {
+                var trigger = await GetTriggerAsync(subscription, requestOptions);
+
+                if (trigger.Alerts.Count > 0)
+                {
+                    var eventArgs = new AlertEventArgs(trigger, trigger.Alerts);
+                    AlertReceived?.Invoke(this, eventArgs);
+                }
+            }
+        }
+
+        public void Subscribe(string triggerId)
+        {
+            _triggerSubscriptions.Add(triggerId);
+
+            if (_pollTimer is null)
+            {
+                _pollTimer = new Timer(PollCallback, null, _options.PollInterval, _options.PollInterval);
+            }
+        }
+
+        public bool Unsubscribe(string triggerId)
+        {
+            if (_triggerSubscriptions.Remove(triggerId))
+            {
+                if (_triggerSubscriptions.Count == 0)
+                {
+                    _pollTimer?.Dispose();
+                    _pollTimer = null;
+                }
+
+                return true;
+            }
+
+            return false;
+        }
+
+        protected async Task<TEntity> RequestAsync<TEntity>(
+            string uri, NameValueCollection queryParameters = null, RequestOptions requestOptions = default,
+            bool doCache = true, HttpMethod method = null, HttpContent httpContent = null)
+        {
+            method = method ?? HttpMethod.Get;
+            requestOptions = requestOptions ?? RequestOptions.Default;
+            requestOptions.CancellationToken.ThrowIfCancellationRequested();
+
+            if (requestOptions.CacheMode == CacheMode.CacheOnly && doCache)
+            {
+                throw new InvalidOperationException("In the request options cache only is specified, but the requested resource does not support caching.");
+            }
+
+            // build the cache key for the request and check if the request is cached
+            var cacheKey = doCache ? BuildRequestCacheKey(uri, queryParameters) : null;
+            var cacheItem = doCache ? _cache.GetCacheItem(cacheKey) : null;
+
+            // make sure caching is allowed and the request is cached, return the cache result
+            if (cacheItem != null && cacheItem.Value != null && requestOptions.CacheMode != CacheMode.Download)
+            {
+                return (TEntity)cacheItem.Value;
+            }
+
+            // check if cache only is enabled. If we get this far the request was not cached, throw
+            // an exception.
+            if (requestOptions.CacheMode == CacheMode.CacheOnly)
+            {
+                throw new InvalidOperationException("The request was not retrieved from cache.");
+            }
+
+            using (var response = await SendRequestAsync(uri, queryParameters, requestOptions, method, httpContent))
+            {
+                // resource not found
+                if (response.StatusCode == HttpStatusCode.NotFound)
+                {
+                    return default;
+                }
+
+                using (var responseStream = await response.Content.ReadAsStreamAsync())
+                using (var streamReader = new StreamReader(responseStream))
+                using (var jsonTextReader = new JsonTextReader(streamReader))
+                {
+                    var data = await JToken.LoadAsync(jsonTextReader, requestOptions.CancellationToken);
+                    var result = data.ToObject<TEntity>();
+
+                    // add the result to the cache for 10 minutes
+                    if (doCache)
+                    {
+                        _cache.Add(cacheKey, result, DateTimeOffset.UtcNow + TimeSpan.FromMinutes(10));
+                    }
+
+                    return result;
+                }
+            }
+        }
+
+        protected async Task RequestAsync(
+            string uri, NameValueCollection queryParameters = null, RequestOptions requestOptions = default,
+            HttpMethod method = null, HttpContent httpContent = null)
+        {
+            method = method ?? HttpMethod.Get;
+            requestOptions = requestOptions ?? RequestOptions.Default;
+            requestOptions.CancellationToken.ThrowIfCancellationRequested();
+
+            using (var response = await SendRequestAsync(uri, queryParameters, requestOptions, method, httpContent))
+            {
+                response.EnsureSuccessStatusCode();
+            }
+        }
+
+        protected async Task<HttpResponseMessage> SendRequestAsync(
+            string uri, NameValueCollection queryParameters = null, RequestOptions requestOptions = default,
+            HttpMethod method = null, HttpContent httpContent = null)
+        {
+            method = method ?? HttpMethod.Get;
+            requestOptions = requestOptions ?? RequestOptions.Default;
+            requestOptions.CancellationToken.ThrowIfCancellationRequested();
+
+            // send request
+            var requestUri = BuildRequestUri(uri, queryParameters, requestOptions);
+
+            // send request to the API
+            using (var request = new HttpRequestMessage(method, requestUri) { Content = httpContent })
+            {
+                var response = await _httpClient.SendAsync(request, HttpCompletionOption.ResponseHeadersRead, requestOptions.CancellationToken);
+
+                // something went wrong
+                if (!response.IsSuccessStatusCode)
+                {
+                    // read the result as a string
+                    var content = await response.Content.ReadAsStringAsync();
+
+                    var messageBuilder = new StringBuilder();
+                    messageBuilder.Append("OpenWeatherMap Request Error:");
+                    messageBuilder.AppendFormat("\n- Got status {0} ({1}), expected: 2xx.", response.StatusCode, (int)response.StatusCode);
+                    messageBuilder.AppendFormat("\n- Request Status Line: {0} {1}.", method.Method, uri);
+                    messageBuilder.Append("\n- Response Headers:");
+
+                    foreach (var header in response.Headers)
+                    {
+                        messageBuilder.AppendFormat("\n    - {0}:\t{1}", header.Key, string.Join(", ", header.Value));
+                    }
+
+                    messageBuilder.AppendFormat("\n- Response Content: {0}", content);
+                    throw new InvalidOperationException(messageBuilder.ToString());
+                }
+
+                return response;
+            }
+        }
+
         private string BuildCityName(string city, string countryCode = null)
             => countryCode == null ? city : city + "-" + countryCode;
 
@@ -407,7 +604,7 @@
             return $"req-{uri}-{{{query}}}";
         }
 
-        private Uri BuildRequestUri(string uri, NameValueCollection queryParameters = null, RequestOptions requestOptions = default, string version = "2.5")
+        private Uri BuildRequestUri(string uri, NameValueCollection queryParameters = null, RequestOptions requestOptions = default, string version = "3.0")
         {
             // create a new query string collection
             var parameters = HttpUtility.ParseQueryString(string.Empty);
@@ -424,8 +621,7 @@
             // add the specific unit if it is not the default (Kelvin)
             if (requestOptions.Unit != UnitType.Default)
             {
-                parameters.Add("units", requestOptions.Unit == UnitType.Imperial
-                    ? "imperial" : "metric");
+                parameters.Add("units", requestOptions.Unit == UnitType.Imperial ? "imperial" : "metric");
             }
 
             // add the specific language when specified
@@ -459,89 +655,15 @@
             }
         }
 
-        protected async Task<TEntity> RequestAsync<TEntity>(string uri, NameValueCollection queryParameters = null, RequestOptions requestOptions = default,
-            string version = "2.5", bool doCache = true, HttpMethod method = null, HttpContent httpContent = null)
+        private void PollCallback(object state)
         {
-            method = method ?? HttpMethod.Get;
-            requestOptions = requestOptions ?? RequestOptions.Default;
-            requestOptions.CancellationToken.ThrowIfCancellationRequested();
-
-            if (requestOptions.CacheMode == CacheMode.CacheOnly && doCache)
+            try
             {
-                throw new InvalidOperationException("In the request options cache only is specified, but the requested resource does not support caching.");
+                PollAsync().GetAwaiter().GetResult();
             }
-
-            // build the cache key for the request and check if the request is cached
-            var cacheKey = doCache ? BuildRequestCacheKey(uri, queryParameters) : null;
-            var cacheItem = doCache ? _cache.GetCacheItem(cacheKey) : null;
-
-            // make sure caching is allowed and the request is cached, return the cache result
-            if (cacheItem != null && cacheItem.Value != null && requestOptions.CacheMode != CacheMode.Download)
+            catch (Exception)
             {
-                return (TEntity)cacheItem.Value;
-            }
-
-            // check if cache only is enabled. If we get this far the request was not cached, throw
-            // an exception.
-            if (requestOptions.CacheMode == CacheMode.CacheOnly)
-            {
-                throw new InvalidOperationException("The request was not retrieved from cache.");
-            }
-
-            // send request
-            var requestUri = BuildRequestUri(uri, queryParameters, requestOptions, version);
-            var result = await SendAsync<TEntity>(method, requestUri, httpContent);
-
-            // resource not found
-            if (result == null)
-            {
-                return result;
-            }
-
-            // add the result to the cache for 10 minutes
-            if (doCache)
-            {
-                _cache.Add(cacheKey, result, DateTimeOffset.UtcNow + TimeSpan.FromMinutes(10));
-            }
-
-            return result;
-        }
-
-        private async Task<TEntity> SendAsync<TEntity>(HttpMethod httpMethod, Uri uri, HttpContent httpContent = null)
-        {
-            // send request to the api
-            using (var request = new HttpRequestMessage(httpMethod, uri) { Content = httpContent })
-            using (var response = await _httpClient.SendAsync(request))
-            {
-                // read the result as a string
-                var content = await response.Content.ReadAsStringAsync();
-
-                // the resource was not found
-                if (response.StatusCode == HttpStatusCode.NotFound)
-                {
-                    return default;
-                }
-
-                // something went wrong
-                if (!response.IsSuccessStatusCode)
-                {
-                    var messageBuilder = new StringBuilder();
-                    messageBuilder.Append("OpenWeatherMap Request Error:");
-                    messageBuilder.AppendFormat("\n- Got status {0} ({1}), expected: 2xx.", response.StatusCode, (int)response.StatusCode);
-                    messageBuilder.AppendFormat("\n- Request Status Line: {0} {1}.", httpMethod.Method, uri);
-                    messageBuilder.Append("\n- Response Headers:");
-
-                    foreach (var header in response.Headers)
-                    {
-                        messageBuilder.AppendFormat("\n    - {0}:\t{1}", header.Key, string.Join(", ", header.Value));
-                    }
-
-                    messageBuilder.AppendFormat("\n- Response Content: {0}", content);
-                    throw new InvalidOperationException(messageBuilder.ToString());
-                }
-
-                // deserialize the response
-                return JsonConvert.DeserializeObject<TEntity>(content);
+                // ignore exceptions, we do not throw exceptions on timers..
             }
         }
     }

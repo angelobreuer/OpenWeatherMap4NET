@@ -4,6 +4,42 @@
         <name>OpenWeatherMap4NET</name>
     </assembly>
     <members>
+        <member name="M:OpenWeatherMap.Converters.CoordinatesArrayJsonConverter.CanConvert(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:OpenWeatherMap.Converters.CoordinatesArrayJsonConverter.ReadJson(Newtonsoft.Json.JsonReader,System.Type,System.Object,Newtonsoft.Json.JsonSerializer)">
+            <inheritdoc/>
+        </member>
+        <member name="M:OpenWeatherMap.Converters.CoordinatesArrayJsonConverter.WriteJson(Newtonsoft.Json.JsonWriter,System.Object,Newtonsoft.Json.JsonSerializer)">
+            <inheritdoc/>
+        </member>
+        <member name="P:OpenWeatherMap.Converters.DefaultJsonConverter.CanRead">
+            <inheritdoc/>
+        </member>
+        <member name="P:OpenWeatherMap.Converters.DefaultJsonConverter.CanWrite">
+            <inheritdoc/>
+        </member>
+        <member name="M:OpenWeatherMap.Converters.DefaultJsonConverter.CanConvert(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:OpenWeatherMap.Converters.DefaultJsonConverter.ReadJson(Newtonsoft.Json.JsonReader,System.Type,System.Object,Newtonsoft.Json.JsonSerializer)">
+            <inheritdoc/>
+        </member>
+        <member name="M:OpenWeatherMap.Converters.DefaultJsonConverter.WriteJson(Newtonsoft.Json.JsonWriter,System.Object,Newtonsoft.Json.JsonSerializer)">
+            <inheritdoc/>
+        </member>
+        <member name="P:OpenWeatherMap.Converters.GeoAreaJsonConverter.CanWrite">
+            <inheritdoc/>
+        </member>
+        <member name="M:OpenWeatherMap.Converters.GeoAreaJsonConverter.CanConvert(System.Type)">
+            <inheritdoc/>
+        </member>
+        <member name="M:OpenWeatherMap.Converters.GeoAreaJsonConverter.ReadJson(Newtonsoft.Json.JsonReader,System.Type,System.Object,Newtonsoft.Json.JsonSerializer)">
+            <inheritdoc/>
+        </member>
+        <member name="M:OpenWeatherMap.Converters.GeoAreaJsonConverter.WriteJson(Newtonsoft.Json.JsonWriter,System.Object,Newtonsoft.Json.JsonSerializer)">
+            <inheritdoc/>
+        </member>
         <member name="T:OpenWeatherMap.Entities.AdditionalWeatherInformation">
             <summary>
                 The strongly-typed representation of a JSON-object providing additional weather
@@ -691,6 +727,27 @@
             </param>
             <returns>a task that represents the asynchronous operation</returns>
         </member>
+        <member name="P:OpenWeatherMap.Triggers.Area.MultiPoint.Coordinates">
+            <inheritdoc/>
+        </member>
+        <member name="P:OpenWeatherMap.Triggers.Area.MultiPoint.Type">
+            <inheritdoc/>
+        </member>
+        <member name="P:OpenWeatherMap.Triggers.Area.MultiPolygon.Coordinates">
+            <inheritdoc/>
+        </member>
+        <member name="P:OpenWeatherMap.Triggers.Area.MultiPolygon.Type">
+            <inheritdoc/>
+        </member>
+        <member name="P:OpenWeatherMap.Triggers.Area.Point.Type">
+            <inheritdoc/>
+        </member>
+        <member name="P:OpenWeatherMap.Triggers.Area.Polygon.Coordinates">
+            <inheritdoc/>
+        </member>
+        <member name="P:OpenWeatherMap.Triggers.Area.Polygon.Type">
+            <inheritdoc/>
+        </member>
         <member name="T:OpenWeatherMap.Util.CacheMode">
             <summary>
                 A set of supported caching modes.
@@ -736,6 +793,60 @@
             <summary>
                 Daily weather forecast for 16 days.
             </summary>
+        </member>
+        <member name="T:OpenWeatherMap.Util.JsonContent">
+            <summary>
+                Represents a HTTP content which holds JSON-encoded data.
+            </summary>
+        </member>
+        <member name="F:OpenWeatherMap.Util.JsonContent.MediaType">
+            <summary>
+                The media type for JSON-encoded HTTP content ("application/json").
+            </summary>
+        </member>
+        <member name="M:OpenWeatherMap.Util.JsonContent.#ctor(System.Object,System.Text.Encoding)">
+            <summary>
+                Initializes a new instance of the <see cref="T:OpenWeatherMap.Util.JsonContent"/> class.
+            </summary>
+            <param name="value">the JSON object to write</param>
+            <param name="encoding">
+                the encoding to use when writing the JSON data; or <see langword="null"/> to use
+                <see cref="P:System.Text.Encoding.UTF8"/>
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+                thrown if the specified <paramref name="value"/> is <see langword="null"/>.
+            </exception>
+        </member>
+        <member name="M:OpenWeatherMap.Util.JsonContent.#ctor(Newtonsoft.Json.Linq.JToken,System.Text.Encoding)">
+            <summary>
+                Initializes a new instance of the <see cref="T:OpenWeatherMap.Util.JsonContent"/> class.
+            </summary>
+            <param name="token">the JSON token to write</param>
+            <param name="encoding">
+                the encoding to use when writing the JSON data; or <see langword="null"/> to use
+                <see cref="P:System.Text.Encoding.UTF8"/>
+            </param>
+            <exception cref="T:System.ArgumentNullException">
+                thrown if the specified <paramref name="token"/> is <see langword="null"/>.
+            </exception>
+        </member>
+        <member name="P:OpenWeatherMap.Util.JsonContent.Encoding">
+            <summary>
+                Gets the encoding to use when writing the JSON data.
+            </summary>
+            <value>the encoding to use when writing the JSON data</value>
+        </member>
+        <member name="P:OpenWeatherMap.Util.JsonContent.Token">
+            <summary>
+                Gets the JSON token to write.
+            </summary>
+            <value>the JSON token to write</value>
+        </member>
+        <member name="M:OpenWeatherMap.Util.JsonContent.SerializeToStreamAsync(System.IO.Stream,System.Net.TransportContext)">
+            <inheritdoc/>
+        </member>
+        <member name="M:OpenWeatherMap.Util.JsonContent.TryComputeLength(System.Int64@)">
+            <inheritdoc/>
         </member>
         <member name="T:OpenWeatherMap.Util.RequestOptions">
             <summary>

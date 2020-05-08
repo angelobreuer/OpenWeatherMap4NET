@@ -60,8 +60,8 @@
                 throw new InvalidOperationException("Could not convert expression: " + expression);
             }
 
-            var triggerType = ResolveTriggerType(propertyExpression.Member.Name);
-            return new TriggerCondition(triggerType, constantValue, expressionType);
+            var triggerName = ResolveTriggerName(propertyExpression.Member.Name);
+            return new TriggerCondition(triggerName, constantValue, expressionType);
         }
 
         private static WeatherExpressionType ResolveExpressionType(BinaryExpression expression)
@@ -73,7 +73,7 @@
                 case ExpressionType.GreaterThan: return WeatherExpressionType.GreaterThan;
                 case ExpressionType.LessThan: return WeatherExpressionType.LessThan;
                 case ExpressionType.GreaterThanOrEqual: return WeatherExpressionType.GreaterThan;
-                case ExpressionType.LessThanOrEqual: return WeatherExpressionType.GreaterOrEqual;
+                case ExpressionType.LessThanOrEqual: return WeatherExpressionType.GreaterThanOrEqual;
             }
 
             throw new ArgumentOutOfRangeException(
@@ -81,16 +81,16 @@
                 "Unsupported logical expression type: " + expression);
         }
 
-        private static WeatherTriggerType ResolveTriggerType(string propertyName)
+        private static WeatherTriggerName ResolveTriggerName(string propertyName)
         {
             switch (propertyName)
             {
-                case nameof(WeatherTriggerCondition.Clouds): return WeatherTriggerType.Clouds;
-                case nameof(WeatherTriggerCondition.Humidity): return WeatherTriggerType.Humidity;
-                case nameof(WeatherTriggerCondition.Pressure): return WeatherTriggerType.Pressure;
-                case nameof(WeatherTriggerCondition.Temperature): return WeatherTriggerType.Temperature;
-                case nameof(WeatherTriggerCondition.WindDirection): return WeatherTriggerType.WindDirection;
-                case nameof(WeatherTriggerCondition.WindSpeed): return WeatherTriggerType.WindSpeed;
+                case nameof(WeatherTriggerCondition.Clouds): return WeatherTriggerName.Clouds;
+                case nameof(WeatherTriggerCondition.Humidity): return WeatherTriggerName.Humidity;
+                case nameof(WeatherTriggerCondition.Pressure): return WeatherTriggerName.Pressure;
+                case nameof(WeatherTriggerCondition.Temperature): return WeatherTriggerName.Temperature;
+                case nameof(WeatherTriggerCondition.WindDirection): return WeatherTriggerName.WindDirection;
+                case nameof(WeatherTriggerCondition.WindSpeed): return WeatherTriggerName.WindSpeed;
             }
 
             throw new ArgumentException("Failed to resolve weather trigger type.", nameof(propertyName));
