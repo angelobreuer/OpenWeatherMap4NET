@@ -17,6 +17,8 @@
         /// </summary>
         public Uri BaseAddress { get; set; } = new Uri("https://api.openweathermap.org/data/");
 
+        public TimeSpan PollInterval { get; set; } = TimeSpan.FromSeconds(40);
+
         /// <summary>
         ///     Validates the open weather map options.
         /// </summary>

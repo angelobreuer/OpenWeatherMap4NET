@@ -2,7 +2,6 @@
 {
     using System.Collections.Generic;
     using Newtonsoft.Json;
-    using OpenWeatherMap.Entities;
 
     /// <summary>
     ///     Represents the response object of a weather forecast request.

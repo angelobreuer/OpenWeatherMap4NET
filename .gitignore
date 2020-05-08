@@ -16,9 +16,6 @@ assets/
 # App Settings
 appsettings.json
 
-# Experimental
-Triggers/
-
 # Private Keys
 *.pfx
 
