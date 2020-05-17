@@ -19,7 +19,7 @@
     <PackageId>OpenWeatherMap4NET</PackageId>
     <Product>OpenWeatherMap4NET</Product>
     <AssemblyName>OpenWeatherMap4NET</AssemblyName>
-    <Copyright>Angelo Breuer 2019</Copyright>
+    <Copyright>Angelo Breuer 2020</Copyright>
   </PropertyGroup>
 
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
