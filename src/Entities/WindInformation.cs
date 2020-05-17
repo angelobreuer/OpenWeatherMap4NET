@@ -9,16 +9,16 @@
     public sealed class WindInformation
     {
         /// <summary>
-        ///     Gets the wind speed.
-        /// </summary>
-        [JsonRequired, JsonProperty("speed")]
-        public double Speed { get; internal set; }
-
-        /// <summary>
         ///     Gets the angle of the wind direction.
         /// </summary>
-        [JsonRequired, JsonProperty("deg")]
-        public double Direction { get; internal set; }
+        [JsonProperty("deg")]
+        public double? Direction { get; internal set; }
+
+        /// <summary>
+        ///     Gets the wind speed.
+        /// </summary>
+        [JsonProperty("speed")]
+        public double? Speed { get; internal set; }
 
         /// <summary>
         ///     Builds a string representation of the object.
