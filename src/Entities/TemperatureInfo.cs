@@ -16,6 +16,12 @@
         public double Value { get; internal set; }
 
         /// <summary>
+        /// This accounts for the human perception of weather
+        /// </summary>
+        [JsonRequired, JsonProperty("feels_like")]
+        public double FeelsLike { get; internal set; }
+
+        /// <summary>
         ///     Gets the pressure.
         /// </summary>
         [JsonRequired, JsonProperty("pressure")]
@@ -55,7 +61,7 @@
         ///     Builds a string representation of the object.
         /// </summary>
         /// <returns>the string representation</returns>
-        public override string ToString() => $"temp: {Value}, min: {MinimumTemperature}, max: {MaximumTemperature}," +
+        public override string ToString() => $"temp: {Value}, realFeel: {FeelsLike}, min: {MinimumTemperature}, max: {MaximumTemperature}," +
             $" hum: {Humidity}%, press: {Pressure}, hPsea: {SeaLevel}, hPgrnd: {GroundLevel}";
     }
 }
