@@ -14,6 +14,7 @@
         /// <summary>
         ///     Gets the when the UV index is.
         /// </summary>
+        /// <value>the when the UV index is.</value>
         [JsonRequired, JsonProperty("date")]
         [JsonConverter(typeof(UnixTimeConverter))]
         public DateTimeOffset DateTime { get; internal set; }
@@ -21,13 +22,14 @@
         /// <summary>
         ///     Gets the UV index.
         /// </summary>
+        /// <value>the UV index.</value>
         [JsonRequired, JsonProperty("value")]
         public double Value { get; internal set; }
 
         /// <summary>
-        ///     Builds a string representation of the object.
+        ///     Builds a <see cref="string"/> representation of the object.
         /// </summary>
-        /// <returns>the string representation</returns>
+        /// <returns>the <see cref="string"/> representation</returns>
         public override string ToString() => $"{base.ToString()}, index: {Value}, date: {DateTime.ToString(CultureInfo.InvariantCulture)}";
     }
 }

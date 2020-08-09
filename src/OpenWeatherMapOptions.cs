@@ -10,11 +10,13 @@
         /// <summary>
         ///     Gets or sets the RESTful api key (required).
         /// </summary>
-        public string ApiKey { get; set; }
+        /// <value>the RESTful api key (required).</value>
+        public string? ApiKey { get; set; }
 
         /// <summary>
         ///     Gets or sets the base address for the RESTful api service (required).
         /// </summary>
+        /// <value>the base address for the RESTful api service (required).</value>
         public Uri BaseAddress { get; set; } = new Uri("https://api.openweathermap.org/data/");
 
         /// <summary>

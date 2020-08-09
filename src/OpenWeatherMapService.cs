@@ -1,19 +1,19 @@
 ﻿namespace OpenWeatherMap
 {
     using System;
+    using System.Collections.Generic;
     using System.Collections.Specialized;
+    using System.Globalization;
+    using System.Linq;
+    using System.Net;
     using System.Net.Http;
     using System.Runtime.Caching;
+    using System.Text;
     using System.Threading.Tasks;
     using System.Web;
-    using System.Linq;
     using Newtonsoft.Json;
     using OpenWeatherMap.Entities;
     using OpenWeatherMap.Util;
-    using System.Collections.Generic;
-    using System.Text;
-    using System.Globalization;
-    using System.Net;
 
     /// <summary>
     ///     The service for getting weather information.
@@ -58,10 +58,13 @@
         ///     the request options (can change the behavior of requesting and controls caching,
         ///     cancellation, unit and language options of the result)
         /// </param>
-        /// <returns>a task that represents the asynchronous operation</returns>
-        public Task<UVIndex> GetCurrentUVIndexAsync(double latitude, double longitude, RequestOptions requestOptions = default)
+        /// <returns>
+        ///     a task that represents the asynchronous operation. The task result is the UV index;
+        ///     or <see langword="null"/> if the city could not be found.
+        /// </returns>
+        public Task<UVIndex?> GetCurrentUVIndexAsync(double latitude, double longitude, RequestOptions? requestOptions = default)
         {
-            requestOptions = requestOptions ?? RequestOptions.Default;
+            requestOptions ??= RequestOptions.Default;
             requestOptions.CancellationToken.ThrowIfCancellationRequested();
 
             // send request
@@ -80,10 +83,13 @@
         ///     the request options (can change the behavior of requesting and controls caching,
         ///     cancellation, unit and language options of the result)
         /// </param>
-        /// <returns>a task that represents the asynchronous operation</returns>
-        public Task<Weather> GetCurrentWeatherAsync(string city, string countryCode = null, RequestOptions requestOptions = default)
+        /// <returns>
+        ///     a task that represents the asynchronous operation. The task result is the weather
+        ///     information; or <see langword="null"/> if the city could not be found.
+        /// </returns>
+        public Task<Weather?> GetCurrentWeatherAsync(string city, string? countryCode = null, RequestOptions? requestOptions = default)
         {
-            requestOptions = requestOptions ?? RequestOptions.Default;
+            requestOptions ??= RequestOptions.Default;
             requestOptions.CancellationToken.ThrowIfCancellationRequested();
 
             // send request
@@ -102,10 +108,13 @@
         ///     the request options (can change the behavior of requesting and controls caching,
         ///     cancellation, unit and language options of the result)
         /// </param>
-        /// <returns>a task that represents the asynchronous operation</returns>
-        public Task<Weather> GetCurrentWeatherAsync(int cityId, RequestOptions requestOptions = default)
+        /// <returns>
+        ///     a task that represents the asynchronous operation. The task result is the weather
+        ///     information; or <see langword="null"/> if the city could not be found.
+        /// </returns>
+        public Task<Weather?> GetCurrentWeatherAsync(int cityId, RequestOptions? requestOptions = default)
         {
-            requestOptions = requestOptions ?? RequestOptions.Default;
+            requestOptions ??= RequestOptions.Default;
             requestOptions.CancellationToken.ThrowIfCancellationRequested();
 
             // send request
@@ -121,10 +130,13 @@
         ///     the request options (can change the behavior of requesting and controls caching,
         ///     cancellation, unit and language options of the result)
         /// </param>
-        /// <returns>a task that represents the asynchronous operation</returns>
-        public Task<Weather> GetCurrentWeatherAsync(double latitude, double longitude, RequestOptions requestOptions = default)
+        /// <returns>
+        ///     a task that represents the asynchronous operation. The task result is the weather
+        ///     information; or <see langword="null"/> if the city could not be found.
+        /// </returns>
+        public Task<Weather?> GetCurrentWeatherAsync(double latitude, double longitude, RequestOptions? requestOptions = default)
         {
-            requestOptions = requestOptions ?? RequestOptions.Default;
+            requestOptions ??= RequestOptions.Default;
             requestOptions.CancellationToken.ThrowIfCancellationRequested();
 
             // send request
@@ -141,10 +153,13 @@
         ///     the request options (can change the behavior of requesting and controls caching,
         ///     cancellation, unit and language options of the result)
         /// </param>
-        /// <returns>a task that represents the asynchronous operation</returns>
-        public Task<WeatherList> GetCurrentWeatherAsync(IEnumerable<int> cityIds, RequestOptions requestOptions = default)
+        /// <returns>
+        ///     a task that represents the asynchronous operation. The task result is the weather
+        ///     information; or <see langword="null"/> if the city could not be found.
+        /// </returns>
+        public Task<WeatherList?> GetCurrentWeatherAsync(IEnumerable<int> cityIds, RequestOptions? requestOptions = default)
         {
-            requestOptions = requestOptions ?? RequestOptions.Default;
+            requestOptions ??= RequestOptions.Default;
             requestOptions.CancellationToken.ThrowIfCancellationRequested();
 
             var parameters = new NameValueCollection { { "id", string.Join(",", cityIds) } };
@@ -171,10 +186,13 @@
         ///     the request options (can change the behavior of requesting and controls caching,
         ///     cancellation, unit and language options of the result)
         /// </param>
-        /// <returns>a task that represents the asynchronous operation</returns>
-        public Task<WeatherList> GetCurrentWeatherAsync(double latitude, double longitude, int count = 10, bool cluster = false, RequestOptions requestOptions = default)
+        /// <returns>
+        ///     a task that represents the asynchronous operation. The task result is the weather
+        ///     information; or <see langword="null"/> if the city could not be found.
+        /// </returns>
+        public Task<WeatherList?> GetCurrentWeatherAsync(double latitude, double longitude, int count = 10, bool cluster = false, RequestOptions? requestOptions = default)
         {
-            requestOptions = requestOptions ?? RequestOptions.Default;
+            requestOptions ??= RequestOptions.Default;
             requestOptions.CancellationToken.ThrowIfCancellationRequested();
 
             var parameters = new NameValueCollection { { "lat", latitude.ToString(CultureInfo.InvariantCulture) },
@@ -197,10 +215,13 @@
         ///     the request options (can change the behavior of requesting and controls caching,
         ///     cancellation, unit and language options of the result)
         /// </param>
-        /// <returns>a task that represents the asynchronous operation</returns>
-        public Task<WeatherList> GetCurrentWeatherAsync(WeatherZone zone, bool cluster = false, RequestOptions requestOptions = default)
+        /// <returns>
+        ///     a task that represents the asynchronous operation. The task result is the weather
+        ///     information; or <see langword="null"/> if the city could not be found.
+        /// </returns>
+        public Task<WeatherList?> GetCurrentWeatherAsync(WeatherZone zone, bool cluster = false, RequestOptions? requestOptions = default)
         {
-            requestOptions = requestOptions ?? RequestOptions.Default;
+            requestOptions ??= RequestOptions.Default;
             requestOptions.CancellationToken.ThrowIfCancellationRequested();
 
             // send request
@@ -217,10 +238,13 @@
         ///     the request options (can change the behavior of requesting and controls caching,
         ///     cancellation, unit and language options of the result)
         /// </param>
-        /// <returns>a task that represents the asynchronous operation</returns>
-        public Task<Weather> GetCurrentWeatherAsync(int zipCode, string country = "us", RequestOptions requestOptions = default)
+        /// <returns>
+        ///     a task that represents the asynchronous operation. The task result is the weather
+        ///     information; or <see langword="null"/> if the city could not be found.
+        /// </returns>
+        public Task<Weather?> GetCurrentWeatherAsync(int zipCode, string country = "us", RequestOptions? requestOptions = default)
         {
-            requestOptions = requestOptions ?? RequestOptions.Default;
+            requestOptions ??= RequestOptions.Default;
             requestOptions.CancellationToken.ThrowIfCancellationRequested();
 
             // send request
@@ -238,19 +262,22 @@
         ///     the request options (can change the behavior of requesting and controls caching,
         ///     cancellation, unit and language options of the result)
         /// </param>
-        /// <returns>a task that represents the asynchronous operation</returns>
+        /// <returns>
+        ///     a task that represents the asynchronous operation. The task result is the UV index
+        ///     information; or <see langword="null"/> if the city could not be found.
+        /// </returns>
         /// <exception cref="ArgumentOutOfRangeException">
         ///     thrown if the specified <paramref name="days"/> parameter is smaller than 1 or
         ///     greater than 8.
         /// </exception>
-        public Task<IReadOnlyCollection<UVIndex>> GetUVIndexForecastAsync(double latitude, double longitude, int days, RequestOptions requestOptions = default)
+        public Task<IReadOnlyCollection<UVIndex>?> GetUVIndexForecastAsync(double latitude, double longitude, int days, RequestOptions? requestOptions = default)
         {
             if (days < 1 || days > 8)
             {
                 throw new ArgumentOutOfRangeException(nameof(days), days, "The specified days parameter is smaller than 1 or greater than 8.");
             }
 
-            requestOptions = requestOptions ?? RequestOptions.Default;
+            requestOptions ??= RequestOptions.Default;
             requestOptions.CancellationToken.ThrowIfCancellationRequested();
 
             var parameters = new NameValueCollection { { "lat", latitude.ToString(CultureInfo.InvariantCulture) },
@@ -272,7 +299,10 @@
         ///     the request options (can change the behavior of requesting and controls caching,
         ///     cancellation, unit and language options of the result)
         /// </param>
-        /// <returns>a task that represents the asynchronous operation</returns>
+        /// <returns>
+        ///     a task that represents the asynchronous operation. The task result is the UV index
+        ///     information; or <see langword="null"/> if the city could not be found.
+        /// </returns>
         /// <exception cref="ArgumentOutOfRangeException">
         ///     thrown if the specified <paramref name="days"/> parameter is smaller than 1 or
         ///     greater than 8.
@@ -284,7 +314,7 @@
         ///     thrown if the <paramref name="start"/> time is greater than the <paramref
         ///     name="end"/> time.
         /// </exception>
-        public Task<IReadOnlyCollection<UVIndex>> GetUVIndexHistoryAsync(double latitude, double longitude, DateTimeOffset start, DateTimeOffset end, int days, RequestOptions requestOptions = default)
+        public Task<IReadOnlyCollection<UVIndex>?> GetUVIndexHistoryAsync(double latitude, double longitude, DateTimeOffset start, DateTimeOffset end, int days, RequestOptions? requestOptions = default)
         {
             if (days < 1 || days > 8)
             {
@@ -301,7 +331,7 @@
                 throw new ArgumentOutOfRangeException(nameof(end), end, "The start time is greater than the end time.");
             }
 
-            requestOptions = requestOptions ?? RequestOptions.Default;
+            requestOptions ??= RequestOptions.Default;
             requestOptions.CancellationToken.ThrowIfCancellationRequested();
 
             var parameters = new NameValueCollection { { "lat", latitude.ToString() }, { "lon", longitude.ToString() },
@@ -321,10 +351,13 @@
         ///     the request options (can change the behavior of requesting and controls caching,
         ///     cancellation, unit and language options of the result)
         /// </param>
-        /// <returns>a task that represents the asynchronous operation</returns>
-        public Task<WeatherForecast> GetWeatherForecastAsync(string city, string countryCode = null, ForecastType forecastType = ForecastType.ThreeHour, RequestOptions requestOptions = default)
+        /// <returns>
+        ///     a task that represents the asynchronous operation. The task result is the weather
+        ///     forecast; or <see langword="null"/> if the city could not be found.
+        /// </returns>
+        public Task<WeatherForecast?> GetWeatherForecastAsync(string city, string? countryCode = null, ForecastType forecastType = ForecastType.ThreeHour, RequestOptions? requestOptions = default)
         {
-            requestOptions = requestOptions ?? RequestOptions.Default;
+            requestOptions ??= RequestOptions.Default;
             requestOptions.CancellationToken.ThrowIfCancellationRequested();
 
             // send request
@@ -341,10 +374,13 @@
         ///     the request options (can change the behavior of requesting and controls caching,
         ///     cancellation, unit and language options of the result)
         /// </param>
-        /// <returns>a task that represents the asynchronous operation</returns>
-        public Task<WeatherForecast> GetWeatherForecastAsync(int cityId, ForecastType forecastType = ForecastType.ThreeHour, RequestOptions requestOptions = default)
+        /// <returns>
+        ///     a task that represents the asynchronous operation. The task result is the weather
+        ///     forecast; or <see langword="null"/> if the city could not be found.
+        /// </returns>
+        public Task<WeatherForecast?> GetWeatherForecastAsync(int cityId, ForecastType forecastType = ForecastType.ThreeHour, RequestOptions? requestOptions = default)
         {
-            requestOptions = requestOptions ?? RequestOptions.Default;
+            requestOptions ??= RequestOptions.Default;
             requestOptions.CancellationToken.ThrowIfCancellationRequested();
 
             // send request
@@ -362,10 +398,13 @@
         ///     the request options (can change the behavior of requesting and controls caching,
         ///     cancellation, unit and language options of the result)
         /// </param>
-        /// <returns>a task that represents the asynchronous operation</returns>
-        public Task<WeatherForecast> GetWeatherForecastAsync(double latitude, double longitude, ForecastType forecastType = ForecastType.ThreeHour, RequestOptions requestOptions = default)
+        /// <returns>
+        ///     a task that represents the asynchronous operation. The task result is the weather
+        ///     forecast; or <see langword="null"/> if the city could not be found.
+        /// </returns>
+        public Task<WeatherForecast?> GetWeatherForecastAsync(double latitude, double longitude, ForecastType forecastType = ForecastType.ThreeHour, RequestOptions? requestOptions = default)
         {
-            requestOptions = requestOptions ?? RequestOptions.Default;
+            requestOptions ??= RequestOptions.Default;
             requestOptions.CancellationToken.ThrowIfCancellationRequested();
 
             var parameters = new NameValueCollection { { "lat", latitude.ToString(CultureInfo.InvariantCulture) },
@@ -385,10 +424,13 @@
         ///     the request options (can change the behavior of requesting and controls caching,
         ///     cancellation, unit and language options of the result)
         /// </param>
-        /// <returns>a task that represents the asynchronous operation</returns>
-        public Task<WeatherForecast> GetWeatherForecastAsync(int zipCode, string country = "us", ForecastType forecastType = ForecastType.ThreeHour, RequestOptions requestOptions = default)
+        /// <returns>
+        ///     a task that represents the asynchronous operation. The task result is the weather
+        ///     forecast; or <see langword="null"/> if the city could not be found.
+        /// </returns>
+        public Task<WeatherForecast?> GetWeatherForecastAsync(int zipCode, string country = "us", ForecastType forecastType = ForecastType.ThreeHour, RequestOptions? requestOptions = default)
         {
-            requestOptions = requestOptions ?? RequestOptions.Default;
+            requestOptions ??= RequestOptions.Default;
             requestOptions.CancellationToken.ThrowIfCancellationRequested();
 
             // send request
@@ -396,19 +438,27 @@
             return RequestAsync<WeatherForecast>(GetEndpoint(forecastType), parameters, requestOptions);
         }
 
-        private string BuildCityName(string city, string countryCode = null)
-            => countryCode == null ? city : city + "-" + countryCode;
+        private string BuildCityName(string city, string? countryCode = null)
+            => string.IsNullOrWhiteSpace(countryCode) ? city : city + "-" + countryCode;
 
-        private string BuildRequestCacheKey(string uri, NameValueCollection parameters)
+        private string BuildRequestCacheKey(string uri, NameValueCollection? parameters)
         {
-            var query = string.Join(";", parameters.Keys
-                .Cast<string>().Select(s => s + ":" + parameters[s]));
+            if (parameters is null)
+            {
+                return $"req-{uri}";
+            }
 
-            return $"req-{uri}-{{{query}}}";
+            var combinedParameters = parameters.Keys
+                .Cast<string>()
+                .Select(s => s + ":" + parameters[s]);
+
+            return $"req-{uri}-{{{string.Join(";", combinedParameters)}}}";
         }
 
-        private Uri BuildRequestUri(string uri, NameValueCollection queryParameters = null, RequestOptions requestOptions = default, string version = "2.5")
+        private Uri BuildRequestUri(string uri, NameValueCollection? queryParameters = null, RequestOptions? requestOptions = default, string version = "2.5")
         {
+            requestOptions ??= RequestOptions.Default;
+
             // create a new query string collection
             var parameters = HttpUtility.ParseQueryString(string.Empty);
 
@@ -441,29 +491,21 @@
             return builder.Uri;
         }
 
-        private string GetEndpoint(ForecastType forecastType)
+        private string GetEndpoint(ForecastType forecastType) => forecastType switch
         {
-            switch (forecastType)
-            {
-                case ForecastType.ThreeHour:
-                    return "forecast";
+            ForecastType.ThreeHour => "forecast",
+            ForecastType.Hourly => "forecast/hourly",
+            ForecastType.Daily => "forecast/daily",
+            _ => throw new ArgumentException("Unknown forecast type.", nameof(forecastType)),
+        };
 
-                case ForecastType.Hourly:
-                    return "forecast/hourly";
-
-                case ForecastType.Daily:
-                    return "forecast/daily";
-
-                default:
-                    throw new ArgumentException("Unknown forecast type.", nameof(forecastType));
-            }
-        }
-
-        private async Task<TEntity> RequestAsync<TEntity>(string uri, NameValueCollection queryParameters = null, RequestOptions requestOptions = default,
-            string version = "2.5", bool doCache = true, HttpMethod method = null, HttpContent httpContent = null)
+        private async Task<TEntity?> RequestAsync<TEntity>(
+            string uri, NameValueCollection? queryParameters = null, RequestOptions? requestOptions = default,
+            string version = "2.5", bool doCache = true, HttpMethod? method = null, HttpContent? httpContent = null)
+            where TEntity : class
         {
-            method = method ?? HttpMethod.Get;
-            requestOptions = requestOptions ?? RequestOptions.Default;
+            method ??= HttpMethod.Get;
+            requestOptions ??= RequestOptions.Default;
             requestOptions.CancellationToken.ThrowIfCancellationRequested();
 
             if (requestOptions.CacheMode == CacheMode.CacheOnly && doCache)
@@ -495,7 +537,7 @@
             // resource not found
             if (result == null)
             {
-                return result;
+                return null;
             }
 
             // add the result to the cache for 10 minutes
@@ -507,42 +549,41 @@
             return result;
         }
 
-        private async Task<TEntity> SendAsync<TEntity>(HttpMethod httpMethod, Uri uri, HttpContent httpContent = null)
+        private async Task<TEntity?> SendAsync<TEntity>(HttpMethod httpMethod, Uri uri, HttpContent? httpContent = null) where TEntity : class
         {
             // send request to the api
-            using (var request = new HttpRequestMessage(httpMethod, uri) { Content = httpContent })
-            using (var response = await _httpClient.SendAsync(request))
+            using var request = new HttpRequestMessage(httpMethod, uri) { Content = httpContent };
+            using var response = await _httpClient.SendAsync(request);
+
+            // read the result as a string
+            var content = await response.Content.ReadAsStringAsync();
+
+            // the resource was not found
+            if (response.StatusCode == HttpStatusCode.NotFound)
             {
-                // read the result as a string
-                var content = await response.Content.ReadAsStringAsync();
-
-                // the resource was not found
-                if (response.StatusCode == HttpStatusCode.NotFound)
-                {
-                    return default;
-                }
-
-                // something went wrong
-                if (!response.IsSuccessStatusCode)
-                {
-                    var messageBuilder = new StringBuilder();
-                    messageBuilder.Append("OpenWeatherMap Request Error:");
-                    messageBuilder.AppendFormat("\n- Got status {0} ({1}), expected: 2xx.", response.StatusCode, (int)response.StatusCode);
-                    messageBuilder.AppendFormat("\n- Request Status Line: {0} {1}.", httpMethod.Method, uri);
-                    messageBuilder.Append("\n- Response Headers:");
-
-                    foreach (var header in response.Headers)
-                    {
-                        messageBuilder.AppendFormat("\n    - {0}:\t{1}", header.Key, string.Join(", ", header.Value));
-                    }
-
-                    messageBuilder.AppendFormat("\n- Response Content: {0}", content);
-                    throw new InvalidOperationException(messageBuilder.ToString());
-                }
-
-                // deserialize the response
-                return JsonConvert.DeserializeObject<TEntity>(content);
+                return default;
             }
+
+            // something went wrong
+            if (!response.IsSuccessStatusCode)
+            {
+                var messageBuilder = new StringBuilder();
+                messageBuilder.Append("OpenWeatherMap Request Error:");
+                messageBuilder.AppendFormat("\n- Got status {0} ({1}), expected: 2xx.", response.StatusCode, (int)response.StatusCode);
+                messageBuilder.AppendFormat("\n- Request Status Line: {0} {1}.", httpMethod.Method, uri);
+                messageBuilder.Append("\n- Response Headers:");
+
+                foreach (var header in response.Headers)
+                {
+                    messageBuilder.AppendFormat("\n    - {0}:\t{1}", header.Key, string.Join(", ", header.Value));
+                }
+
+                messageBuilder.AppendFormat("\n- Response Content: {0}", content);
+                throw new InvalidOperationException(messageBuilder.ToString());
+            }
+
+            // deserialize the response
+            return JsonConvert.DeserializeObject<TEntity>(content);
         }
     }
 }

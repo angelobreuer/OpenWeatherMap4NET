@@ -12,15 +12,17 @@
     public sealed class WeatherList
     {
         /// <summary>
-        ///     The calculation time needed.
+        ///     Gets the calculation time needed.
         /// </summary>
+        /// <value>the calculation time needed.</value>
         [JsonProperty("dt"), JsonConverter(typeof(UnixTimeConverter))]
         public DateTimeOffset? CalculationTime { get; internal set; }
 
         /// <summary>
-        ///     The weathers in the list.
+        ///     Gets the weathers in the list.
         /// </summary>
+        /// <value>the weathers in the list.</value>
         [JsonRequired, JsonProperty("list")]
-        public IReadOnlyCollection<Weather> List { get; internal set; }
+        public IReadOnlyCollection<Weather> List { get; internal set; } = Array.Empty<Weather>();
     }
 }
